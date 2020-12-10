@@ -1,8 +1,5 @@
 const endpoints = {
-    CATEGORIES: 'categories',
-    PROJECTS: 'projects',
-    SHARED_PROJECTS: 'sharedProjects',
-    FAVORITES: 'favorites'
+   MAPS: 'maps'
 }
 
 export default endpoints;

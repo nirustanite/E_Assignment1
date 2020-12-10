@@ -11,7 +11,6 @@ const appMenuItems = [
       items: [
         {
             name: "Maps",
-            Icon: FolderIcon,
             items: [
                 {
                     name: "Map1"
@@ -20,7 +19,6 @@ const appMenuItems = [
         },
         {
             name: "Shapes",
-            Icon: FolderIcon,
             items: [
                 {
                     name: "Shape 1"

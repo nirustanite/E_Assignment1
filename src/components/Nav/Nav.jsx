@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         zIndex: "0 !important",
     },
     drawerPaper: {
-        width: 260
+        width: 300
     },
     content: {
         flexGrow: 1,
