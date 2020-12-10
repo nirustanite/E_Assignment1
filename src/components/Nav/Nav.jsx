@@ -4,7 +4,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import AppBar from "@material-ui/core/AppBar";
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -13,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from '@material-ui/core/Divider';
 import { Link } from "react-router-dom";
+import Menu from '../Menu/Menu';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,15 +60,12 @@ const Nav = () => {
 
     const classes = useStyles();
 
-    console.log(classes.drawer);
-
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const handleDrawerOpen = () => {
       setDrawerOpen(true);
     };
     const handleDrawerClose = () => {
-      console.log("inside close");
       setDrawerOpen(false);
     };
 
@@ -111,8 +108,12 @@ const Nav = () => {
                     <ListItem button component={Link} to="/" onClick={handleItemClick}>
                         <ListItemText>Home</ListItemText>
                      </ListItem>
+                    
                 </List>
                 <Divider />
+                <List component="nav">
+                    <Menu />
+                </List>
             </SwipeableDrawer>
        </React.Fragment>
   
