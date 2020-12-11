@@ -10,11 +10,12 @@ import Collapse from '@material-ui/core/Collapse'
 import IconExpandLess from '@material-ui/icons/ExpandLess'
 import IconExpandMore from '@material-ui/icons/ExpandMore'
 import MenuItem from './MenuItem';
+import SubMenuList from './SubMenuList'
 
 const useStyles = makeStyles(theme =>
     createStyles({
       menuItem: {
-        paddingLeft: "20px",
+        paddingLeft: "10px",
         '&.active': {
           background: 'rgba(0, 0, 0, 0.08)',
           '& .MuiListItemIcon-root': {
@@ -26,32 +27,30 @@ const useStyles = makeStyles(theme =>
         },
       },
       menuItemIcon: {
-  
+        
       },
     }),
   )
 
 const MenuListItem = (props) => {
-    const { name, link, Icon, items = []} = props;
-    const classes = useStyles();
-    const isExpandable = items && items.length > 0;
-    const [open, setOpen] = useState(false);
+      const { name, Icon, items = []} = props;
+      const classes = useStyles();
+      const isExpandable = items && items.length > 0;
+      const [open, setOpen] = useState(false);
 
-    function handleClick() {
-        setOpen(!open)
-    }
+      function handleClick() {
+          setOpen(!open)
+      }
 
     
       const MenuItemRoot = (
         <MenuItem className={classes.menuItem} onClick={handleClick} style={{ paddingLeft: "40px"}}>
-          {/* Display an icon if any */}
           {!!Icon && (
             <ListItemIcon className={classes.menuItemIcon}>
               <Icon />
             </ListItemIcon>
           )}
           <ListItemText primary={name} inset={!Icon} />
-          {/* Display the expand menu if the item has children */}
           {isExpandable && !open && <IconExpandMore />}
           {isExpandable && open && <IconExpandLess />}
         </MenuItem>
@@ -61,7 +60,7 @@ const MenuListItem = (props) => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {items.map((item, index) => {
-               return <MenuListItem {...item} key={index}  />
+               return <SubMenuList {...item} key={index} category={name} handleItemClick={props.handleItemClick}/>
             })}
           </List>
         </Collapse>

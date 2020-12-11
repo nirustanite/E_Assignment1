@@ -13,6 +13,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from '@material-ui/core/Divider';
 import { Link } from "react-router-dom";
 import Menu from '../Menu/Menu';
+import routes from 'Pages/routes';
+import HomeIcon from '@material-ui/icons/Home';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4)
-    }
+    },
 }));
 
 
@@ -105,14 +108,18 @@ const Nav = () => {
             >
                 <div className={classes.toolbarMargin} />
                 <List component="nav">
-                    <ListItem button component={Link} to="/" onClick={handleItemClick}>
-                        <ListItemText>Home</ListItemText>
+                    <ListItem button component={Link} to={routes.HOME} onClick={handleItemClick} >
+                        <ListItemIcon>
+                            <HomeIcon />
+                        </ListItemIcon>
+                        <ListItemText>
+                            Home
+                        </ListItemText>
                      </ListItem>
-                    
                 </List>
                 <Divider />
-                <List component="nav">
-                    <Menu />
+                <List component="nav"  >
+                    <Menu handleItemClick={handleItemClick}/>
                 </List>
             </SwipeableDrawer>
        </React.Fragment>

@@ -1,5 +1,6 @@
 const endpoints = {
-   MAPS: 'maps'
+   MAPS: 'maps',
+   SHAPES: 'shapes'
 }
 
 export default endpoints;

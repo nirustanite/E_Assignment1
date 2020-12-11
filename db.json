@@ -63,18 +63,6 @@
         {
             "id": 6,
             "categoryId": 2,
-            "favorite": false,
-            "type": "Map",
-            "name": "Shared Map 3",
-            "status": "Progress",
-            "date": "02-12-2020",
-            "owner":"Person 4",
-            "avatar": "https://react.semantic-ui.com/images/avatar/small/mark.png",
-            "src": "https://duncan99.files.wordpress.com/2014/08/polygon1.png"
-        },
-        {
-            "id": 1,
-            "categoryId": 3,
             "favorite": true,
             "type": "Map",
             "name": "Shared Map 3",
@@ -113,7 +101,7 @@
         {
             "id": 3,
             "categoryId": 1,
-            "favorite": false,
+            "favorite": true,
             "type": "Shape",
             "name": "Shape 3",
             "status": "Progress",
@@ -126,8 +114,8 @@
             "id": 4,
             "categoryId": 2,
             "favorite": false,
-            "type": "Map",
-            "name": "Shared Map 1",
+            "type": "Shape",
+            "name": "Shared Shape 1",
             "status": "Uploaded",
             "date": "24-02-2020",
             "owner": "Person 4",
@@ -139,7 +127,7 @@
             "categoryId": 2,
             "favorite": false,
             "type": "Shape",
-            "name": "Shared Shape 1",
+            "name": "Shared Shape 2",
             "status": "Progress",
             "date": "29-11-2020",
             "owner": "Person 4",
@@ -151,23 +139,11 @@
             "categoryId": 2,
             "favorite": false,
             "type": "Map",
-            "name": "Shared Map 3",
+            "name": "Shared Shape 3",
             "status": "Progress",
             "date": "02-12-2020",
             "owner":"Person 4",
             "avatar": "https://react.semantic-ui.com/images/avatar/small/mark.png",
-            "src": "https://duncan99.files.wordpress.com/2014/08/polygon1.png"
-        },
-        {
-            "id": 7,
-            "categoryId": 1,
-            "favorite": true,
-            "type": "Shape",
-            "name": "Shape 3",
-            "status": "Progress",
-            "date": "30-11-2020",
-            "owner": "Person 1",
-            "avatar":"https://react.semantic-ui.com/images/avatar/small/matthew.png",
             "src": "https://duncan99.files.wordpress.com/2014/08/polygon1.png"
         }
     ]

@@ -1,46 +1,73 @@
 import { takeEvery, call, put } from "redux-saga/effects";
-import api from '../api';
+import request from 'superagent';
+import ConfigData from "ConfigData";
+import endpoints from 'Util/endpoints';
 
-export const types = {
-    FETCH_SHARED_PROJECTS_REQUESTED: 'FETCH_SHARED_PROJECTS_REQUESTED',
-    FETCH_SHARED_PROJECTS_SUCCEEDED: 'FETCH_SHARED_PROJECTS_SUCCEEDED',
-    FETCH_SHARED_PROJECTS_FAILED: 'FETCH_SHARED_PROJECTS_FAILED'
-}
+const types = {
+    FETCH_SHARED_PROJECTS_MAPS_REQUESTED: 'FETCH_SHARED_PROJECTS_MAPS_REQUESTED',
+    FETCH_SHARED_PROJECTS_MAPS_SUCCEEDED: 'FETCH_SHARED_PROJECTS_MAPS_SUCCEEDED',
+    FETCH_SHARED_PROJECTS_MAPS_FAILED: 'FETCH_SHARED_PROJECTS_MAPS_FAILED',
+    FETCH_SHARED_PROJECTS_SHAPES_REQUESTED: 'FETCH_SHARED_PROJECTS_SHAPES_REQUESTED',
+    FETCH_SHARED_PROJECTS_SHAPES_SUCCEEDED: 'FETCH_SHARED_PROJECTS_SHAPES_SUCCEEDED',
+    FETCH_SHARED_PROJECTS_SHAPES_FAILED: 'FETCH_SHARED_PROJECTS_SHAPES_FAILED',
+};
 
 export const actions = {
-    sharedProjectsFetch : () => ({
-        type: types.FETCH_SHARED_PROJECTS_REQUESTED,
+    sharedProjectsMapsFetch : (callback) => ({
+        type: types.FETCH_SHARED_PROJECTS_MAPS_REQUESTED,
+        callback
     }),
-    sharedProjectsSucceeded: (sharedProjects) => ({
-        type: types.FETCH_SHARED_PROJECTS_SUCCEEDED,
-        sharedProjects
+    sharedProjectsMapsSucceeded: (sharedProjectsMaps) => ({
+        type: types.FETCH_SHARED_PROJECTS_MAPS_SUCCEEDED,
+        sharedProjectsMaps
     }),
-    sharedProjectsFailed: (error) => ({
-        type: types.FETCH_SHARED_PROJECTS_FAILED,
+    sharedProjectsMapsFailed: (error) => ({
+        type: types.FETCH_SHARED_PROJECTS_MAPS_FAILED,
         error
     }),
-}
+    sharedProjectsShapesFetch : (callback) => ({
+        type: types.FETCH_SHARED_PROJECTS_SHAPES_REQUESTED,
+        callback
+    }),
+    sharedProjectsShapesSucceeded: (sharedProjectsShapes) => ({
+        type: types.FETCH_SHARED_PROJECTS_SHAPES_SUCCEEDED,
+        sharedProjectsShapes
+    }),
+    sharedProjectsShapesFailed: (error) => ({
+        type: types.FETCH_SHARED_PROJECTS_SHAPES_FAILED,
+        error
+    }),
+};
 
 const initialState = {
-    sharedProjects: [],
+    sharedProjectsMaps: [],
+    sharedProjectsShapes: [],
     error: "",
     loading: false
 };
 
 export default function reducer(state=initialState, action){
     switch(action.type){
-        case types.FETCH_SHARED_PROJECTS_REQUESTED:
+        case types.FETCH_SHARED_PROJECTS_MAPS_REQUESTED:
+        case types.FETCH_SHARED_PROJECTS_SHAPES_REQUESTED:
             return {
                 ...state,
                loading: true
             };
-        case types.FETCH_SHARED_PROJECTS_SUCCEEDED:
+        case types.FETCH_SHARED_PROJECTS_MAPS_SUCCEEDED:
             return {
                 ...state,
-                sharedProjects: action.sharedProjects,
+                sharedProjectsMaps: action.sharedProjectsMaps,
                 loading: false
             };
-        case types.FETCH_SHARED_PROJECTS_FAILED:
+        case types.FETCH_SHARED_PROJECTS_SHAPES_SUCCEEDED:
+            return {
+                ...state,
+                sharedProjectsShapes: action.sharedProjectsShapes,
+                loading: false
+            };
+        case types.FETCH_SHARED_PROJECTS_MAPS_FAILED:
+        case types.FETCH_SHARED_PROJECTS_SHARED_FAILED:
             return {
                 ...state,
                 error: action.error,
@@ -48,20 +75,43 @@ export default function reducer(state=initialState, action){
             };
         default:
             return state;
-    }
-}
+    };
+};
 
 export function* saga(){
-    yield takeEvery(types.FETCH_SHARED_PROJECTS_REQUESTED,getSharedProjects);
-}
+    yield takeEvery(types.FETCH_SHARED_PROJECTS_MAPS_REQUESTED,getSharedProjectsMaps);
+    yield takeEvery(types.FETCH_SHARED_PROJECTS_SHAPES_REQUESTED,getSharedProjectsShapes);
+};
  
 
-export function* getSharedProjects(){
+export function* getSharedProjectsMaps({callback}){
     try{
-        const response  = yield call(api.callSharedProjects);
-        yield put(actions.sharedProjectsSucceeded(response.body));
+        const response  = yield call(callSharedProjectsMaps);
+        yield put(actions.sharedProjectsMapsSucceeded(response.body));
+
+        typeof callback == "function" && callback(response.body);
     }
     catch(error){
-        yield put(actions.sharedProjectsFailed("Server Error"));
+        yield put(actions.sharedProjectsMapsFailed("Server Error"));
     } 
+};
+
+export function* getSharedProjectsShapes({callback}){
+    try{
+        const response  = yield call(callSharedProjectsShapes);
+        yield put(actions.sharedProjectsShapesSucceeded(response.body));
+
+        typeof callback == "function" && callback(response.body);
+    }
+    catch(error){
+        yield put(actions.sharedProjectsShapesFailed("Server Error"));
+    } 
+};
+
+function callSharedProjectsMaps() {
+    return request.get(`${ConfigData.url}/${endpoints.MAPS}?categoryId=2`);
+}
+
+function callSharedProjectsShapes() {
+    return request.get(`${ConfigData.url}/${endpoints.SHAPES}?categoryId=2`);
 }

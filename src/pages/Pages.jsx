@@ -1,19 +1,21 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import ErrorBoundary from 'Util/ErrorBoundary';
+import HomePage from './HomePage';
+import Map from './Map';
+import Shape from './Shape';
 
-const HomePage = lazy(() => import('./HomePage'));
 
 
 const Pages = () => {
     return(
         <ErrorBoundary>
-             <Suspense fallback={<div>Loading...</div>}>
-                <Switch>
-                    <Route path={routes.HOME} exact component={HomePage} />
-                </Switch>
-            </Suspense>
+            <Switch>
+                <Route path={routes.HOME} exact component={HomePage} />
+                <Route path={routes.MAP} component={Map} />
+                <Route path={routes.SHAPE} component={Shape} />
+            </Switch>
         </ErrorBoundary>
     );
 };

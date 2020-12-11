@@ -4,12 +4,8 @@ import styled from 'styled-components';
 import Nav from 'Components/Nav/Nav';
 
 const StyledContainer = styled(Container)`
-    padding-top: 5em;
-    padding-bottom: 5em;
-
-    @media screen and (max-width: 600px)  {
-        padding-top: 70%;
-    }
+    padding-top: 3em;
+    padding-bottom: 3em;
 `;
 
 const Page = ({ children }) => {

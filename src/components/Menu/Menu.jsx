@@ -2,6 +2,8 @@ import React from 'react';
 import FolderIcon from '@material-ui/icons/Folder';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
+import MapIcon from '@material-ui/icons/Map';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import MenuListItem from './MenuListItem';
 
 const appMenuItems = [
@@ -11,19 +13,13 @@ const appMenuItems = [
       items: [
         {
             name: "Maps",
-            items: [
-                {
-                    name: "Map1"
-                }
-            ]
+            Icon: MapIcon,
+            items: []
         },
         {
             name: "Shapes",
-            items: [
-                {
-                    name: "Shape 1"
-                }
-            ]
+            Icon: StarBorderIcon,
+            items:[]
         }
       ]
     },
@@ -33,19 +29,13 @@ const appMenuItems = [
       items: [
         {
             name: "Maps",
-            items: [
-                {
-                    name: "Map1"
-                }
-            ]
+            Icon: MapIcon,
+            items:[]
         },
         {
             name: "Shapes",
-            items: [
-                {
-                    name: "Map1"
-                }
-            ]
+            Icon: StarBorderIcon,
+            items:[]
         }
       ]
     },
@@ -55,29 +45,23 @@ const appMenuItems = [
         items: [
           {
               name: "Maps",
-              items: [
-                {
-                    name: "Map1"
-                }
-              ]
+              Icon: MapIcon,
+              items:[]
           },
           {
               name: "Shapes",
-              items: [
-                {
-                    name: "Map1"
-                }
-              ]
+              Icon: StarBorderIcon,
+              items:[]
           }
         ]
       }
   ];
 
-const Menu = () => {
+const Menu = (props) => {
     return(
         <React.Fragment>
             {appMenuItems.map((item,index) => {
-                return <MenuListItem {...item} key={index}/>  
+                return <MenuListItem {...item} key={index} handleItemClick={props.handleItemClick}/>  
             })}
         </React.Fragment>
     );

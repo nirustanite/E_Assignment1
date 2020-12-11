@@ -16,7 +16,6 @@ const MenuItem = (props) => {
     )
   }
 
-  // Return a LitItem with a link component
   return (
     <ListItem
       button
