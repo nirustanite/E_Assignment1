@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import {useDispatch} from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List'
+import List from '@material-ui/core/List';
 
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Collapse from '@material-ui/core/Collapse'
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
 
-import IconExpandLess from '@material-ui/icons/ExpandLess'
-import IconExpandMore from '@material-ui/icons/ExpandMore'
+import IconExpandLess from '@material-ui/icons/ExpandLess';
+import IconExpandMore from '@material-ui/icons/ExpandMore';
 import MenuItem from './MenuItem';
-import SubMenuList from './SubMenuList'
+import SubMenuList from './SubMenuList';
 
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -21,16 +20,13 @@ const useStyles = makeStyles(theme =>
           '& .MuiListItemIcon-root': {
             color: 'rgba(0, 0, 0, 0.54)',
             display: 'inline-flex',
-            minWidth: '56px',
+            minWidth: '46px',
             flexShrink: 0,
           },
         },
       },
-      menuItemIcon: {
-        
-      },
     }),
-  )
+);
 
 const MenuListItem = (props) => {
       const { name, Icon, items = []} = props;

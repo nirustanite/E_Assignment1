@@ -56,6 +56,11 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4)
     },
+    listTitle: {
+        '&: hover':{
+            backgroundColor: "#089EC8 !important",
+        }
+    }
 }));
 
 
@@ -108,7 +113,7 @@ const Nav = () => {
             >
                 <div className={classes.toolbarMargin} />
                 <List component="nav">
-                    <ListItem button component={Link} to={routes.HOME} onClick={handleItemClick} >
+                    <ListItem button component={Link} to={routes.HOME} onClick={handleItemClick} className={classes.listTitle}>
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>

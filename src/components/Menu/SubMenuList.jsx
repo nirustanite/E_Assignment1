@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useDispatch} from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List'
@@ -15,6 +15,7 @@ import ProjectsStore from 'Store/Projects';
 import SharedProjectsStore from 'Store/SharedProjects';
 import Favorites from 'Store/Favorites';
 import { Link } from "react-router-dom";
+import Paginator from 'react-hooks-paginator';
 
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme =>
           '& .MuiListItemIcon-root': {
             color: 'rgba(0, 0, 0, 0.54)',
             display: 'inline-flex',
-            minWidth: '56px',
+            minWidth: '45px',
             flexShrink: 0,
           },
         },
@@ -49,6 +50,21 @@ const SubMenuList = (props) => {
 
     const [maps, setMaps] = useState([]);
     const [shapes, setShapes] = useState([]);
+
+    const pageLimit = 2;
+ 
+    const [offset, setOffset] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentMapData, setCurrentMapData] = useState([]);
+    const [currentShapeData, setCurrentShapeData] = useState([]);
+
+    useEffect(() => {
+        setCurrentMapData(maps.slice(offset, offset + pageLimit));
+    }, [offset,maps]);
+
+    useEffect(() => {
+        setCurrentShapeData(shapes.slice(offset, offset + pageLimit));
+    }, [offset,shapes]);
 
     const dispatch = useDispatch();
 
@@ -120,20 +136,36 @@ const SubMenuList = (props) => {
     
       const MenuItemChildren = isExpandable ? (
         <Collapse in={open} timeout="auto" unmountOnExit>
-        {maps && <List component="nav" className={classes.menuListText}>
-            {maps && maps.map((map, i) => {
-                 return <ListItem button component={Link} to={`/map/${map.id}`} onClick={props.handleItemClick} key={i}>
-                            <ListItemText primary={map.name}/>
-                        </ListItem>
-           })}
-        </List>}
-        {shapes && <List component="nav" className={classes.menuListText}>
-            {shapes && shapes.map((shape, i) => {
-                 return <ListItem button component={Link} to={`/shape/${shape.id}`} onClick={props.handleItemClick} key={i}>
-                            <ListItemText primary={shape.name}  key={i}/>
-                        </ListItem>
-           })}
-        </List>}
+            {maps && <List component="nav" className={classes.menuListText}>
+                {currentMapData && currentMapData.map((map, i) => {
+                    return <ListItem button component={Link} to={`/map/${map.id}`} onClick={props.handleItemClick} key={i}>
+                                <ListItemText primary={map.name}/>
+                            </ListItem>
+            })}
+            </List>}
+            {shapes && <List component="nav" className={classes.menuListText}>
+                {currentShapeData && currentShapeData.map((shape, i) => {
+                    return <ListItem button component={Link} to={`/shape/${shape.id}`} onClick={props.handleItemClick} key={i}>
+                                <ListItemText primary={shape.name}  key={i}/>
+                            </ListItem>
+            })}
+            </List>}
+            {name === "Maps" && <Paginator
+                totalRecords={maps.length}
+                pageLimit={pageLimit}
+                pageNeighbours={1}
+                setOffset={setOffset}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+            />}
+            {name === "Shapes" && <Paginator
+                totalRecords={shapes.length}
+                pageLimit={pageLimit}
+                pageNeighbours={1}
+                setOffset={setOffset}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+            />}
       </Collapse>
       ) : null
 
