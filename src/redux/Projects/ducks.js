@@ -3,7 +3,7 @@ import request from 'superagent';
 import ConfigData from "ConfigData";
 import endpoints from 'Util/endpoints';
 
-export const types = {
+const types = {
     FETCH_PROJECTS_MAPS_REQUESTED: 'FETCH_PROJECTS_MAPS_REQUESTED',
     FETCH_PROJECTS_MAPS_SUCCEEDED: 'FETCH_PROJECTS_MAPS_SUCCEEDED',
     FETCH_PROJECTS_MAPS_FAILED: 'FETCH_PROJECTS_MAPS_FAILED',
